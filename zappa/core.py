@@ -28,6 +28,7 @@ import troposphere
 import troposphere.apigateway
 import zipfile
 import uuid
+import pkg_resources
 
 from builtins import int, bytes
 from botocore.exceptions import ClientError
@@ -362,7 +363,7 @@ class Zappa(object):
         import pip
         deps = []
         if not installed_distros:
-            installed_distros = pip.get_installed_distributions()
+            installed_distros = pkg_resources.working_set
         for package in installed_distros:
             if package.project_name.lower() == pkg_name.lower():
                 deps = [(package.project_name, package.version)]
@@ -760,7 +761,7 @@ class Zappa(object):
         package_to_keep = [x.lower() for x in package_to_keep]
 
         installed_packages = {package.project_name.lower(): package.version for package in
-                              pip.get_installed_distributions()
+                              pkg_resources.working_set
                               if package.project_name.lower() in package_to_keep
                               or package.location in [site_packages, site_packages_64]}
 
