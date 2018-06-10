@@ -615,6 +615,7 @@ class Zappa(object):
                     else:
                         cached_wheel_path = self.get_cached_manylinux_wheel(installed_package_name, installed_package_version, disable_progress)
                         if cached_wheel_path:
+                            print(" - %s==%s: Using cached wheel lambda package " % (installed_package_name, installed_package_version,))
                             # Otherwise try to use manylinux packages from PyPi..
                             # Related: https://github.com/Miserlou/Zappa/issues/398
                             shutil.rmtree(os.path.join(temp_project_path, installed_package_name), ignore_errors=True)
